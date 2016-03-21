@@ -22,5 +22,9 @@
   <%= f.label :author %> <br>
   <%= collection_select(:article, :author_id, Author.all, :id, :last_name, include_blank: true) %>
 </p>
+
+<p>     
+  <%= collection_check_boxes(:article, :tag_ids, Tag.all, :id, :name) %>   
+</p>
   <%= f.submit %> 
 <% end %>

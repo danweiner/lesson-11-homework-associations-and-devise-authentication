@@ -1,0 +1,10 @@
+<%= link_to "Back to Author List", authors_path %>
+
+<p>
+  <strong>Author Name:</strong> <%= @author.first_name %> <%= @author.last_name %>
+</p>
+
+<br />
+<% if current_user %>
+  <td><%= link_to "edit", edit_author_path(@author) %></td>
+<% end %>

@@ -1,0 +1,27 @@
+<h1>Tech Today Tags</h1>
+  <table>
+    <tr>
+      <th>Tags</th>
+      <th></th>
+      <th></th>
+    </tr>
+  <tbody>
+  <% @tags.each do |tag| %>
+    <tr>   
+      <td><%= link_to tag.name, tag_path(tag) %></td>
+      <% if current_user %>
+        <td><%= link_to 'Edit', edit_tag_path(tag) %></td>
+        <td><%= link_to 'Delete', tag_path(tag), method: :delete, data: { confirm: 'Are you sure you want to delete this tag?' } %></td>
+      <% end %>
+    </tr>
+  </tbody>
+   <% end %>
+
+  </table>
+  <br>
+  <br>
+<% if current_user %>
+  <%= link_to 'Create a New Tag', new_tag_path %>
+<% end %>
+  <br>
+<%= link_to 'Back to Home Page', root_path %>

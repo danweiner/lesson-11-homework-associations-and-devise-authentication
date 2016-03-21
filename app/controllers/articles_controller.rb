@@ -1,11 +1,11 @@
 class ArticlesController < ApplicationController
-  
+  before_action :authenticate_user!, :except => [:index, :show]
+  before_action :find_article, only: [:show, :edit, :update, :destroy]
   def index
     @articles = Article.all
   end
 
   def show
-    @article = Article.find(params[:id])
   end
 
   def new
@@ -24,14 +24,12 @@ class ArticlesController < ApplicationController
   end
 
   def edit
-    @article = Article.find(params[:id])
   end
 
   def update
-    @article = Article.find(params[:id])
     if @article.update(article_params)
       flash[:notice] = "Article was successfully updated."
-      redirect_to articles_path 
+      redirect_to article_path(@article)
     else
       flash.now[:alert] = "An error prevented the article from being updated."
       render :edit
@@ -39,15 +37,18 @@ class ArticlesController < ApplicationController
   end
 
   def destroy
-    @article = Article.find(params[:id])
     @article.destroy
     redirect_to articles_path
   end
 
   private
 
+    def find_article
+      @article = Article.find(params[:id])
+    end
+
     def article_params
-      params.require(:article).permit(:title, :body, :author_id)
+      params.require(:article).permit(:title, :body, :author_id, tag_ids: [])
     end
 
 end

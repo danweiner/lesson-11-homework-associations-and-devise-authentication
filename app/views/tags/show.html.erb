@@ -1,0 +1,10 @@
+<%= link_to "Back to Tag List", tags_path %>
+
+<p>
+  <strong>Tag Name:</strong> <%= @tag.name %> 
+</p>
+
+<br />
+<% if current_user %>
+  <td><%= link_to "edit", edit_tag_path(@tag) %></td>
+<% end %>
